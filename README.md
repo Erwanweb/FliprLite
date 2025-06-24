@@ -1,0 +1,2 @@
+# FliprLite
+FliprLite for Domoticz
