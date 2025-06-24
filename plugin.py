@@ -46,7 +46,7 @@ class BasePlugin:
         self.password = Parameters["Password"]
 
         self.login()
-        Domoticz.Heartbeat(300)
+        Domoticz.Heartbeat(20)
 
     def onHeartbeat(self):
         Domoticz.Log("Heartbeat: fetching Flipr HTML...")
