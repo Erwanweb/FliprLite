@@ -86,17 +86,22 @@ class BasePlugin:
                 Domoticz.Error(f"Failed to load Flipr JSON data: HTTP {response.status_code}")
                 return
 
-            data = response.json()
-            Domoticz.Debug(f"Flipr JSON response: {data}")
+            data_list = response.json()
+            if not data_list or not isinstance(data_list, list):
+                Domoticz.Error("Flipr JSON response is not a valid list.")
+                return
+
+            # ✅ Toujours prendre la première mesure (la plus récente)
+            data = data_list[0]
 
             temp_raw = data.get("Temperature", 0)
             ph_raw = data.get("RawPH", 0)
             redox_raw = data.get("OxydoReducPotentiel", 0)
 
-            # ✅ Formattage :
+            # ✅ Formattage correct :
             temp = round(float(temp_raw), 1)
             ph = round(float(ph_raw), 2)
-            redox = int(round(float(redox_raw), 0))  # Redox sans virgule
+            redox = int(round(float(redox_raw), 0))  # Sans virgule
 
             Domoticz.Log(f"Scraped JSON: Temp={temp}°C, pH={ph}, Redox={redox} mV")
 
