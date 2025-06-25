@@ -110,7 +110,7 @@ class BasePlugin:
                 return
 
             # ✅ Toujours prendre la première mesure (la plus récente)
-            data = data_list[47]
+            data = data_list[0]
 
             # Vérification de l’ancienneté de la donnée du flipr
             try:
